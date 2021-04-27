@@ -15,7 +15,7 @@ URL_LT = 'https://api.us-south.language-translator.watson.cloud.ibm.com/instance
 
 VERSION_LT='2018-05-01'
 
-TEXT_TO_TRANSLATE = "Hello, this is the text to translate. See how awesome the IBM Watson Translator is!"
+TEXT_TO_TRANSLATE = "This is a test."
 
 # Create the language translator object
 authenticator = IAMAuthenticator(APIKEY_LT)
@@ -70,7 +70,7 @@ def english_to_french(text_input):
     # get the actual translation as a string as follows
     french_translation =translation['translations'][0]['translation']
 
-    return print(french_translation  + "<<< This is the French translation")
+    return french_translation
 
 english_to_french(TEXT_TO_TRANSLATE)
 
@@ -89,6 +89,6 @@ def english_to_german(text_input):
     # get the actual translation as a string as follows
     german_translation =translation['translations'][0]['translation']
 
-    return print(german_translation + "<<< This is the German translation")
+    return german_translation
 
 english_to_german(TEXT_TO_TRANSLATE)
