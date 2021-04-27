@@ -30,7 +30,7 @@ from pandas import json_normalize
 
 json_normalize(language_translator.list_identifiable_languages().get_result(), "languages")
 
-
+"""
 # use the method translate, this will translate the text
 # this case is english to spanish en-es
 # for english to french use en-fr
@@ -56,16 +56,43 @@ translation_new = language_translator.translate(text=spanish_translation ,model_
 translation_eng=translation_new['translations'][0]['translation']
 print(translation_eng)
 print("^^^ And this is translated back into English")
-
+"""
 
 def english_to_french(text_input):
     """
     This function translates from english to french
     """
-    return 
+    # use the method translate, this will translate the text
+    translation_response = language_translator.translate(\
+        text=text_input, model_id='en-fr')
+    translation_response
+
+    # the result is a dictionary
+    translation=translation_response.get_result()
+
+    # get the actual translation as a string as follows
+    french_translation =translation['translations'][0]['translation']
+     
+    return print(french_translation  + "<<< This is the French translation")
+
+english_to_french(TEXT_TO_TRANSLATE)
+
 
 def english_to_german(text_input):
     """
     this function translates english to german
     """
-    return
+        # use the method translate, this will translate the text
+    translation_response = language_translator.translate(\
+        text=text_input, model_id='en-ga')
+    translation_response
+
+    # the result is a dictionary
+    translation=translation_response.get_result()
+
+    # get the actual translation as a string as follows
+    german_translation =translation['translations'][0]['translation']
+     
+    return print(german_translation + "<<< This is the German translation")
+
+english_to_german(TEXT_TO_TRANSLATE)
