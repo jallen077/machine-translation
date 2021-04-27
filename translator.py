@@ -1,32 +1,30 @@
-# pull in the information from the API training section
+"""This is the translator file that
+translates from English to French of English to German"""
 
 # Make sure the appropriate libraries are installed
 # pip3 install pandas
 # pip3 install ibm_watson
 
-
 # import the language translator from IBM watson
-
 from ibm_watson import LanguageTranslatorV3
-import json
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
+from pandas import json_normalize
 
-apikey_lt = 'Kskj1fkMImGgrz6yKRqs5nKaEwM66xc2M-JR9Og_nUym'
-url_lt = 'https://api.us-south.language-translator.watson.cloud.ibm.com/instances/666072d2-3b1a-4286-9a6f-8207468989a9' 
+APIKEY_LT = 'Kskj1fkMImGgrz6yKRqs5nKaEwM66xc2M-JR9Og_nUym'
+URL_LT = 'https://api.us-south.language-translator.watson.cloud.ibm.com/instances/666072d2-3b1a-4286-9a6f-8207468989a9'
 
-version_lt='2018-05-01'
-
+VERSION_LT='2018-05-01'
 
 TEXT_TO_TRANSLATE = "Hello, this is the text to translate. See how awesome the IBM Watson Translator is!"
 
 # Create the language translator object
-authenticator = IAMAuthenticator(apikey_lt)
-language_translator = LanguageTranslatorV3(version=version_lt,authenticator=authenticator)
-language_translator.set_service_url(url_lt)
+authenticator = IAMAuthenticator(APIKEY_LT)
+language_translator = LanguageTranslatorV3(version=VERSION_LT,authenticator=authenticator)
+language_translator.set_service_url(URL_LT)
 #language_translator
 
 # get a list of the languages that the service can identify, currently outputs the list
-from pandas import json_normalize
+
 
 json_normalize(language_translator.list_identifiable_languages().get_result(), "languages")
 
@@ -46,7 +44,7 @@ print("^^^ This is the result as a Python Dictionary")
 
 # get the actual translation as a string as follows
 spanish_translation =translation['translations'][0]['translation']
-print(spanish_translation) 
+print(spanish_translation)
 print("^^^This is the result as a string")
 
 # can translate back to english as follows
@@ -65,14 +63,13 @@ def english_to_french(text_input):
     # use the method translate, this will translate the text
     translation_response = language_translator.translate(\
         text=text_input, model_id='en-fr')
-    translation_response
 
     # the result is a dictionary
     translation=translation_response.get_result()
 
     # get the actual translation as a string as follows
     french_translation =translation['translations'][0]['translation']
-     
+
     return print(french_translation  + "<<< This is the French translation")
 
 english_to_french(TEXT_TO_TRANSLATE)
@@ -85,14 +82,13 @@ def english_to_german(text_input):
         # use the method translate, this will translate the text
     translation_response = language_translator.translate(\
         text=text_input, model_id='en-ga')
-    translation_response
 
     # the result is a dictionary
     translation=translation_response.get_result()
 
     # get the actual translation as a string as follows
     german_translation =translation['translations'][0]['translation']
-     
+
     return print(german_translation + "<<< This is the German translation")
 
 english_to_german(TEXT_TO_TRANSLATE)
